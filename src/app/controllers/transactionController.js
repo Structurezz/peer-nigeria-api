@@ -1,70 +1,65 @@
-import Transaction from '../models/transactionModel.js'; // Import Transaction model
-import { sendSuccessResponse, sendErrorResponse } from './../../lib/utils/responseUtils.js';
+import Transaction from '../models/transactionModel.js'; // Adjust the path as necessary
 
-// Create Transaction function
-export const createTransaction = async (req, res) => {
-  try {
-    const { transactionData } = req.body; // Adjust based on your data structure
-    const transaction = await Transaction.create(transactionData);
-    sendSuccessResponse(res, transaction, 'Transaction created successfully');
-  } catch (error) {
-    sendErrorResponse(res, error);
-  }
-};
-
-// Get all Transactions function
+// Get all transactions
 export const getTransactions = async (req, res) => {
   try {
     const transactions = await Transaction.findAll();
-    sendSuccessResponse(res, transactions, 'Transactions retrieved successfully');
+    res.json(transactions);
   } catch (error) {
-    sendErrorResponse(res, error);
+    res.status(500).json({ message: 'Server error', error });
   }
 };
 
-// Get Transaction by ID function
+// Get transaction by ID
 export const getTransactionById = async (req, res) => {
   try {
     const transaction = await Transaction.findByPk(req.params.id);
     if (transaction) {
-      sendSuccessResponse(res, transaction, 'Transaction retrieved successfully');
+      res.json(transaction);
     } else {
-      sendErrorResponse(res, null, 'Transaction not found');
+      res.status(404).json({ message: 'Transaction not found' });
     }
   } catch (error) {
-    sendErrorResponse(res, error);
+    res.status(500).json({ message: 'Server error', error });
   }
 };
 
-// Update Transaction function
+// Create a new transaction
+export const createTransaction = async (req, res) => {
+  try {
+    const newTransaction = await Transaction.create(req.body);
+    res.status(201).json(newTransaction);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+};
+
+// Update an existing transaction
 export const updateTransaction = async (req, res) => {
   try {
     const transaction = await Transaction.findByPk(req.params.id);
     if (transaction) {
-      // Update fields based on request body
-      transaction.field1 = req.body.field1 || transaction.field1; // Replace field1 with actual fields
-      transaction.field2 = req.body.field2 || transaction.field2; // Replace field2 with actual fields
-      const updatedTransaction = await transaction.save();
-      sendSuccessResponse(res, updatedTransaction, 'Transaction updated successfully');
+      await transaction.update(req.body);
+      res.json(transaction);
     } else {
-      sendErrorResponse(res, null, 'Transaction not found');
+      res.status(404).json({ message: 'Transaction not found' });
     }
   } catch (error) {
-    sendErrorResponse(res, error);
+    res.status(500).json({ message: 'Server error', error });
   }
 };
 
-// Delete Transaction function
+// Delete a transaction
 export const deleteTransaction = async (req, res) => {
   try {
     const transaction = await Transaction.findByPk(req.params.id);
     if (transaction) {
       await transaction.destroy();
-      sendSuccessResponse(res, null, 'Transaction deleted successfully');
+      res.json({ message: 'Transaction deleted' });
     } else {
-      sendErrorResponse(res, null, 'Transaction not found');
+      res.status(404).json({ message: 'Transaction not found' });
     }
   } catch (error) {
-    sendErrorResponse(res, error);
+    res.status(500).json({ message: 'Server error', error });
   }
 };
