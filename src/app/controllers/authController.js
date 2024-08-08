@@ -1,4 +1,4 @@
-import { comparePasswords } from './../../lib/utils/hashUtils.js';
+import { hashPassword, comparePasswords } from './../../lib/utils/hashUtils.js';
 import { generateToken } from './../../lib/utils/jwt.js';
 import { sendSuccessResponse, sendErrorResponse } from './../../lib/utils/responseUtils.js';
 import { isValidEmail, isValidPassword } from './../../lib/utils/validationUtils.js';
