@@ -62,19 +62,4 @@ export const updateUser = async (req, res) => {
   }
 };
 
-export const registerUser = async (req, res) => {
-  const { username, password } = req.body;
 
-  if (!username || !password) {
-    return res.status(400).json({ success: false, message: 'Username and password are required.' });
-  }
-
-  try {
-    const hashedPassword = await hashPassword(password);
-    // Create user logic, assuming you have a User model
-    const newUser = await User.create({ username, password: hashedPassword });
-    res.status(201).json({ success: true, data: newUser });
-  } catch (error) {
-    res.status(500).json({ success: false, message: 'An error occurred', error });
-  }
-};

@@ -7,7 +7,12 @@ import User from '../models/userModel.js';
 // Register function
 export const registerUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, username } = req.body; // Extract username from the request body
+
+    // Check if username is provided
+    if (!username) {
+      return res.status(400).json({ success: false, message: "Username is required" });
+    }
 
     // Validate email and password
     if (!isValidEmail(email) || !isValidPassword(password)) {
@@ -24,7 +29,7 @@ export const registerUser = async (req, res) => {
     const hashedPassword = await hashPassword(password);
 
     // Create a new user
-    const newUser = await User.create({ email, password: hashedPassword });
+    const newUser = await User.create({ email, password: hashedPassword, username });
 
     // Send success response
     sendSuccessResponse(res, { user: newUser }, 'User registered successfully');
@@ -32,6 +37,7 @@ export const registerUser = async (req, res) => {
     sendErrorResponse(res, error);
   }
 };
+
 
 // Login function
 export const loginUser = async (req, res) => {

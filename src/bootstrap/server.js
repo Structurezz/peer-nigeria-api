@@ -24,8 +24,9 @@ app.use(limiter);
 app.use(corsOptions);
 
 // Route handlers
-app.use('/api/auth', authRoutes);
+
 app.use('/api/users', userRoutes);
+app.use('/api/auth', authRoutes);
 app.use('/api/trades', tradeRoutes);
 app.use('/api/giftcards', giftCardRoutes);
 app.use('/api/transactions', transactionRoutes);
