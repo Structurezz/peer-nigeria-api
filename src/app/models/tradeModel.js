@@ -10,8 +10,16 @@ const Trade = sequelize.define('Trade', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  buyerId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  sellerId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
   amount: {
-    type: DataTypes.DECIMAL,
+    type: DataTypes.FLOAT,
     allowNull: false,
   },
   price: {
@@ -19,9 +27,8 @@ const Trade = sequelize.define('Trade', {
     allowNull: false,
   },
   status: {
-    type: DataTypes.ENUM('pending', 'completed', 'cancelled'),
-    allowNull: false,
-    defaultValue: 'pending',
+    type: DataTypes.STRING,
+    defaultValue: 'pending', // Possible values: pending, completed, canceled
   },
 }, {
   timestamps: true,

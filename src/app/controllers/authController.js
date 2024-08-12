@@ -93,3 +93,4 @@ export const getUserProfile = async (req, res) => {
     sendErrorResponse(res, error);
   }
 };
+

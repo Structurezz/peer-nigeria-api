@@ -17,6 +17,10 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  balance: { // Added field
+    type: DataTypes.FLOAT,
+    defaultValue: 0.0,
+  },
   isVerified: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
