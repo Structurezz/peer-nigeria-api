@@ -1,13 +1,13 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from './../../lib/config/db.js';
 
-const Trade = sequelize.define('Trade', {
+const Offer = sequelize.define('Offer', {
   userId: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  offerId: {
-    type: DataTypes.INTEGER,
+  cryptocurrency: {
+    type: DataTypes.STRING,
     allowNull: false,
   },
   amount: {
@@ -18,13 +18,12 @@ const Trade = sequelize.define('Trade', {
     type: DataTypes.DECIMAL,
     allowNull: false,
   },
-  status: {
-    type: DataTypes.ENUM('pending', 'completed', 'cancelled'),
+  type: {
+    type: DataTypes.ENUM('buy', 'sell'),
     allowNull: false,
-    defaultValue: 'pending',
   },
 }, {
   timestamps: true,
 });
 
-export default Trade;
+export default Offer;

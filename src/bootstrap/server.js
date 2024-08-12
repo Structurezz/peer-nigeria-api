@@ -11,6 +11,8 @@ import { notFound, errorHandler } from '../app/middlewares/errorMiddleware.js';
 import { logger } from '../app/middlewares/loggerMiddleware.js';
 import { limiter } from '../app/middlewares/rateLimitMiddleware.js';
 import { corsOptions } from '../app/middlewares/corsMiddleware.js';
+import offerRoutes from '../routes/offerRoutes.js';
+import walletRoutes from '../routes/walletRoutes.js';
 
 dotenv.config();
 

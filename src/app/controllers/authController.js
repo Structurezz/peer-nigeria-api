@@ -38,11 +38,18 @@ export const registerUser = async (req, res) => {
   }
 };
 
+// Error handling function
+
 
 // Login function
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
+
+    // Properly check if email and password are provided
+    if (!email || !password) {
+      return res.status(400).json({ success: false, message: "Email and password are required" });
+    }
 
     // Validate email and password
     if (!isValidEmail(email) || !isValidPassword(password)) {
@@ -66,6 +73,7 @@ export const loginUser = async (req, res) => {
     sendErrorResponse(res, error);
   }
 };
+
 
 // Get User Profile function
 export const getUserProfile = async (req, res) => {
